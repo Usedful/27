@@ -1,0 +1,37 @@
+Q.3 Create your Django app in which after running the server, you should see on the 
+browser, the text “Hello! I am learning Django”, which you defined in the index view.
+
+Ans ->
+
+"myapp/views.py" :
+
+from django.http import HttpResponse
+
+def index(request):
+    return HttpResponse("Hello! I am learning Django")
+
+
+"myapp/urls.py":
+
+from django.urls import path
+from . import views
+
+urlpatterns = [
+    path('', views.index, name='index'),
+]
+
+
+"myproject/urls.py":
+
+from django.contrib import admin
+from django.urls import include, path
+
+urlpatterns = [
+    path('admin/', admin.site.urls),
+    path('', include('myapp.urls')),
+]
+
+
+// Now, when you run the development server with python manage.py 
+runserver and go to http://127.0.0.1:8000/ in your browser, 
+you should see the text "Hello! I am learning Django".
